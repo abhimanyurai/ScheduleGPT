@@ -32,7 +32,6 @@ from llama_index.query_engine import SubQuestionQueryEngine
 from llama_index import StorageContext, load_index_from_storage
 import os
 import openai
-import chromadb
 from llama_index.vector_stores import ChromaVectorStore
 import streamlit as st
 import streamlit_authenticator as sa
