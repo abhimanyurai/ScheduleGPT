@@ -198,11 +198,25 @@ uploaded_file = st.file_uploader(
    
 )
 
+@st.cache_data(ttl="2h")
+def load_data(uploaded_file):
+    try:
+        ext = os.path.splitext(uploaded_file.name)[1][1:].lower()
+    except:
+        ext = uploaded_file.split(".")[-1]
+    if ext in file_formats:
+        return file_formats[ext](uploaded_file)
+    else:
+        st.error(f"Unsupported file format: {ext}")
+        return None
 
+    
 with st.sidebar:
     img = Image.open(logo_path)
-
-    st.sidebar.image(img, width=100)  
+    left_co, cent_co,last_co = st.columns(3)
+    with cent_co:
+    
+        st.sidebar.image(img, width=100)  
     
 
     st.title('Maintenance Bot for Mining')
@@ -217,18 +231,7 @@ with st.sidebar:
         st.success('Proceed to entering your query!', icon='👉')
 
 
-@st.cache_data(ttl="2h")
-def load_data(uploaded_file):
-    try:
-        ext = os.path.splitext(uploaded_file.name)[1][1:].lower()
-    except:
-        ext = uploaded_file.split(".")[-1]
-    if ext in file_formats:
-        return file_formats[ext](uploaded_file)
-    else:
-        st.error(f"Unsupported file format: {ext}")
-        return None
-    
+
 st.markdown('---')
 
 if uploaded_file:
