@@ -213,7 +213,7 @@ def load_data(uploaded_file):
     
 with st.sidebar:
     img = Image.open(logo_path)
-    left_co, cent_co,last_co = st.columns(3)
+    left_co, cent_co,last_co = st.sidebar.columns(3)
     with cent_co:
     
         st.sidebar.image(img, width=100)  
