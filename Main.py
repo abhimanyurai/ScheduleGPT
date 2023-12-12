@@ -217,18 +217,18 @@ with st.sidebar:
     hf_pass = st.text_input('Enter password:', type='password')
     if not (hf_pass == st.secrets['password']):
         st.warning('Please enter your credentials!', icon='⚠️')
-        
+        st.stop()
     else:
         st.success('Proceed to entering your query!', icon='👉')
        
 
 
-    uploaded_file = st.file_uploader(
-        "Upload a Data file",
-        type=list(file_formats.keys()),
-        help="Only Excel Files are supported",
-       
-    )
+uploaded_file = st.file_uploader(
+    "Upload a Data file",
+    type=list(file_formats.keys()),
+    help="Only Excel Files are supported",
+   
+)
 
 
 
