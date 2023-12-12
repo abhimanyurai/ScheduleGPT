@@ -224,11 +224,11 @@ with st.sidebar:
     st.write("Provides all information regarding a given maintenance record, equipment details and provides recommendations on maintenance best practices")
 
     hf_pass = st.text_input('Enter password:', type='password')
-    if not (hf_pass == st.secrets['password']):
-        st.warning('Please enter your credentials!', icon='⚠️')
-        
-    else:
-        st.success('Proceed to entering your query!', icon='👉')
+if not (hf_pass == st.secrets['password']):
+    st.warning('Please enter your credentials!', icon='⚠️')
+    
+else:
+    st.success('Proceed to entering your query!', icon='👉')
 
 
 
