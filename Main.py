@@ -47,14 +47,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 st.set_page_config(page_title="Maintenance Bot", page_icon=logo_path)
-cola,colb = st.columns([5,1])
-with cola:
-    st.title("Welcome to the Maintenance Bot for Mining")
-    
-with colb:
-    img = Image.open(logo_path)
-
-    st.image(img, width=150)  
+st.title("Welcome to the Maintenance Bot for Mining")
 st.markdown('---')
 
 
@@ -209,7 +202,7 @@ uploaded_file = st.file_uploader(
 with st.sidebar:
     img = Image.open(logo_path)
 
-    st.sidebar.image(img, width=70, use_column_width=True)  
+    st.sidebar.image(img, width=100)  
     
 
     st.title('Maintenance Bot for Mining')
