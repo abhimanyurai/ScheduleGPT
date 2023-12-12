@@ -37,7 +37,7 @@ import streamlit as st
 import streamlit_authenticator as sa
 
 #app_path = "D:/dev/maintenance_app"
-#app_path = "."
+app_path = "."
 logo_path = app_path+"/Files/logo.png"
 
 
