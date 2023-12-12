@@ -181,8 +181,13 @@ overall_maintenance_engine = create_chroma_store_pdf(path = app_path+"/SOP_Manua
 
 
 openai_api_key = st.secrets["open_ai"]
-
-
+file_formats = {
+    "csv": pd.read_csv,
+    "xls": pd.read_excel,
+    "xlsx": pd.read_excel,
+    "xlsm": pd.read_excel,
+    "xlsb": pd.read_excel,
+}
 
 @st.cache_data(ttl="2h")
 def load_data(uploaded_file):
@@ -215,13 +220,7 @@ with st.sidebar:
         
     else:
         st.success('Proceed to entering your query!', icon='👉')
-        file_formats = {
-    "csv": pd.read_csv,
-    "xls": pd.read_excel,
-    "xlsx": pd.read_excel,
-    "xlsm": pd.read_excel,
-    "xlsb": pd.read_excel,
-}
+       
 
 
     uploaded_file = st.file_uploader(
