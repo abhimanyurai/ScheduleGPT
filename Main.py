@@ -50,7 +50,7 @@ st.set_page_config(page_title="Maintenance Bot", page_icon=logo_path)
 cola,colb = st.columns([5,1])
 with cola:
     st.title("Welcome to the Maintenance Bot for Mining")
-    st.write("Provides all information regarding a given maintenance record, equipment details and provides recommendations on maintenance best practices")
+    
 with colb:
     img = Image.open(logo_path)
 
@@ -209,11 +209,12 @@ uploaded_file = st.file_uploader(
 with st.sidebar:
     img = Image.open(logo_path)
 
-    # st.sidebar.image(img, width=70, use_column_width=True)  
+    st.sidebar.image(img, width=70, use_column_width=True)  
     
 
     st.title('Maintenance Bot for Mining')
     st.subheader('Powered by Accenture')
+    st.write("Provides all information regarding a given maintenance record, equipment details and provides recommendations on maintenance best practices")
 
     hf_pass = st.text_input('Enter password:', type='password')
     if not (hf_pass == st.secrets['password']):
