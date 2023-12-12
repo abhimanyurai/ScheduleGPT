@@ -1,0 +1,95 @@
+import pandas as pd
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+from llama_index.llms import HuggingFaceInferenceAPI, HuggingFaceLLM
+from langchain import HuggingFaceHub
+from langchain.agents import Tool
+from langchain.chains.conversation.memory import ConversationBufferMemory
+
+from langchain.agents import initialize_agent
+from llama_index import ServiceContext
+model_id = "rishiraj/smol-7b"
+
+from llama_index import VectorStoreIndex, SimpleDirectoryReader
+HF_TOKEN = "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"
+remotely_run = HuggingFaceInferenceAPI(
+    model_name=model_id, token=HF_TOKEN
+)
+service_context = ServiceContext.from_defaults(llm=remotely_run,embed_model="local")
+
+documents = SimpleDirectoryReader("./documents").load_data()
+
+index = VectorStoreIndex.from_documents(documents=documents, service_context=service_context)
+
+tools = [
+    Tool(
+        name="LlamaIndex",
+        func=lambda q: str(index.as_query_engine().query(q)),
+        description="useful for when you want to answer questions about Abhimanyu. The input to this tool should be a complete english sentence.",
+        return_direct=True,
+    ),
+]
+memory = ConversationBufferMemory(memory_key="chat_history")
+llm = HuggingFaceHub(repo_id= model_id, huggingfacehub_api_token=HF_TOKEN)
+agent_executor = initialize_agent(
+    tools, llm, agent="conversational-react-description", memory=memory, verbose=True
+)
+agent_executor.run(input="Tell me about Abhimanyu")
+
+
+
+import nest_asyncio
+nest_asyncio.apply()
+import pandas as pd
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
+from llama_index.llms import HuggingFaceInferenceAPI, HuggingFaceLLM
+from langchain import HuggingFaceHub
+from langchain.agents import Tool
+from langchain.chains import LLMChain
+from langchain.chains.conversation.memory import ConversationBufferMemory
+from langchain.embeddings import GPT4AllEmbeddings
+from langchain.agents import initialize_agent
+from llama_index import ServiceContext
+from langchain.llms import GPT4All
+from llama_index import SimpleDirectoryReader, LLMPredictor, ServiceContext, VectorStoreIndex
+from llama_index.response.pprint_utils import pprint_response
+
+from llama_index.tools import QueryEngineTool, ToolMetadata
+from llama_index.query_engine import SubQuestionQueryEngine
+from langchain.embeddings import Embeddings
+from langchain.document_loaders import 
+
+# HF_TOKEN = "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"
+# model_id = "HuggingFaceH4/zephyr-7b-alpha"
+# llm = HuggingFaceLLM(model_name="HuggingFaceH4/zephyr-7b-alpha")
+model_id = "GeneZC/MiniChat-1.5-3B"
+
+llm= HuggingFaceLLM(model_name=model_id)
+
+sop_documents = SimpleDirectoryReader("./SOP_Manuals").load_data()
+maintenace_records = SimpleDirectoryReader("./Maintenance_Records").load_data()
+
+service_context = ServiceContext.from_defaults(llm=llm, embed_model="local")
+
+sop_index = VectorStoreIndex.from_documents(documents=sop_documents,service_context=service_context)
+
+
+
+# index = VectorStoreIndex.from_documents(documents=documents,service_context=service_context)
+
+tools = [
+    Tool(
+        name="LlamaIndex",
+        func=lambda q: str(index.as_query_engine().query(q)),
+        description="useful for when you want to answer questions about Abhimanyu. The input to this tool should be a complete english sentence.",
+        return_direct=True,
+    ),
+]
+memory = ConversationBufferMemory(memory_key="chat_history")
+
+agent_executor = initialize_agent(
+    tools, llm, agent="conversational-react-description", memory=memory, verbose=True
+)
+agent_executor.run(input="Tell me about Abhimanyu")
+
