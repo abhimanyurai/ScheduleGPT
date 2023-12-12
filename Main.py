@@ -224,11 +224,11 @@ with st.sidebar:
     st.write("Provides all information regarding a given maintenance record, equipment details and provides recommendations on maintenance best practices")
 
     hf_pass = st.text_input('Enter password:', type='password')
-if not (hf_pass == st.secrets['password']):
-    st.warning('Please enter your credentials!', icon='⚠️')
-    
-else:
-    st.success('Proceed to entering your query!', icon='👉')
+    if not (hf_pass == st.secrets['password']):
+        st.warning('Please enter your credentials!', icon='⚠️')
+        
+    else:
+        st.success('Proceed to entering your query!', icon='👉')
 
 
 
@@ -241,52 +241,52 @@ if uploaded_file:
 
 
 
-    query_engine_tools = [
-        QueryEngineTool(
-            query_engine=overall_maintenance_engine,
-            metadata=ToolMetadata(name='Plant Maintenance Manual', description='Provides summary information about Maintenance Manual practices for all equipment in a mine')
-        ),
-        QueryEngineTool(
-            query_engine=caterpillar_maintenance_engine,
-            metadata=ToolMetadata(name='Cat 785 Cat 789 Cat 793 Maintenance Manual', description='Provides information about maintenance & service practices for Caterpillar - Cat  785 Cat 789 Cat 793 series trucks')
-        ),
-        QueryEngineTool(
-            query_engine=pandas_query_engine,
-            metadata=ToolMetadata(name='Maintenance Log', description='Provides base data of equipment health and maintenance including breakdown for a given mine')
-        ),
-        QueryEngineTool(
-            query_engine=caterpillar_specs_engine,
-            metadata=ToolMetadata(name='Specs for Caterpilar', description='Provides infromation about caterpillar equipment specifications')
-        ),
-    ]
+query_engine_tools = [
+    QueryEngineTool(
+        query_engine=overall_maintenance_engine,
+        metadata=ToolMetadata(name='Plant Maintenance Manual', description='Provides summary information about Maintenance Manual practices for all equipment in a mine')
+    ),
+    QueryEngineTool(
+        query_engine=caterpillar_maintenance_engine,
+        metadata=ToolMetadata(name='Cat 785 Cat 789 Cat 793 Maintenance Manual', description='Provides information about maintenance & service practices for Caterpillar - Cat  785 Cat 789 Cat 793 series trucks')
+    ),
+    QueryEngineTool(
+        query_engine=pandas_query_engine,
+        metadata=ToolMetadata(name='Maintenance Log', description='Provides base data of equipment health and maintenance including breakdown for a given mine')
+    ),
+    QueryEngineTool(
+        query_engine=caterpillar_specs_engine,
+        metadata=ToolMetadata(name='Specs for Caterpilar', description='Provides infromation about caterpillar equipment specifications')
+    ),
+]
 
-    #panda_index = GPTPandasIndex (df=df)
-    #pandas_query_engine = panda_index.as_query_engine()
-    llm = OpenAI(temperature=0,model="gpt-3.5-turbo")
+#panda_index = GPTPandasIndex (df=df)
+#pandas_query_engine = panda_index.as_query_engine()
+llm = OpenAI(temperature=0,model="gpt-3.5-turbo")
 
-    # Given a query, this query engine `SubQuestionQueryEngine ` will generate a “query plan”
-    # containing sub-queries against sub-documents before synthesizing the final answer.
-    s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools)
-
-
-    # response = s_engine.query("Which machine shows the highest equipment breakdown? Give me 2-3 recommendations for its maintenance")
-
-    # response.response
+# Given a query, this query engine `SubQuestionQueryEngine ` will generate a “query plan”
+# containing sub-queries against sub-documents before synthesizing the final answer.
+s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools)
 
 
-    if "messages" not in st.session_state:
-        st.session_state["messages"] = [{"role": "Maintenance Bot", "content": "How can I help you?"}]
+# response = s_engine.query("Which machine shows the highest equipment breakdown? Give me 2-3 recommendations for its maintenance")
 
-    for msg in st.session_state.messages:
-        st.chat_message(msg["role"]).write(msg["content"])
+# response.response
 
-    if prompt := st.chat_input(placeholder="Please post your query"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
 
-    if prompt is not None:
-        with st.chat_message("Maintenance Bot"):
-                response = s_engine.query(prompt)
-                st.session_state.messages.append({"role": "Maintenance Bot", "content": response.response})
-                st.write(response.response)
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "Maintenance Bot", "content": "How can I help you?"}]
+
+for msg in st.session_state.messages:
+    st.chat_message(msg["role"]).write(msg["content"])
+
+if prompt := st.chat_input(placeholder="Please post your query"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.chat_message("user").write(prompt)
+
+if prompt is not None:
+    with st.chat_message("Maintenance Bot"):
+            response = s_engine.query(prompt)
+            st.session_state.messages.append({"role": "Maintenance Bot", "content": response.response})
+            st.write(response.response)
 
