@@ -237,7 +237,7 @@ st.markdown('---')
 if uploaded_file:
     df = load_data(uploaded_file)
     
-   pandas_query_engine = PandasQueryEngine(df=df,verbose=True)
+    pandas_query_engine = PandasQueryEngine(df=df,verbose=True)
 
 
 
