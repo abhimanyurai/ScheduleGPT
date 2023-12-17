@@ -95,7 +95,7 @@ def create_chroma_store_pdf(path):
         index = load_index_from_storage(storage_context)
     
     
-    engine = index.as_query_engine(similarity_top_k=3)
+    engine = index.as_query_engine(similarity_top_k=3,verbose=True)
     return engine
 
 # @st.cache_data
