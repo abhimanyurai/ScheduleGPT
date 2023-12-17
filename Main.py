@@ -237,7 +237,7 @@ st.markdown('---')
 if uploaded_file:
     df = load_data(uploaded_file)
     
-   # pandas_query_engine = PandasQueryEngine(df=df,verbose=True)
+   pandas_query_engine = PandasQueryEngine(df=df,verbose=True)
 
 
 
@@ -250,10 +250,10 @@ if uploaded_file:
             query_engine=caterpillar_maintenance_engine,
             metadata=ToolMetadata(name='Cat 785 Cat 789 Cat 793 Maintenance Manual', description='Provides information about maintenance & service practices for Caterpillar - Cat  785 Cat 789 Cat 793 series trucks')
         ),
-        #QueryEngineTool(
-           # query_engine=pandas_query_engine,
-        #    metadata=ToolMetadata(name='Maintenance Log', description='Provides base data of equipment health and maintenance including breakdown for a given mine')
-       # ),
+        QueryEngineTool(
+         query_engine=pandas_query_engine,
+            metadata=ToolMetadata(name='Maintenance Log', description='Provides base data of equipment health and maintenance including breakdown for a given mine')
+        ),
         QueryEngineTool(
             query_engine=caterpillar_specs_engine,
             metadata=ToolMetadata(name='Specs for Caterpilar', description='Provides infromation about caterpillar equipment specifications')
@@ -266,7 +266,7 @@ if uploaded_file:
     
     # Given a query, this query engine `SubQuestionQueryEngine ` will generate a “query plan”
     # containing sub-queries against sub-documents before synthesizing the final answer.
-    s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools)
+    s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
     
     
     # response = s_engine.query("Which machine shows the highest equipment breakdown? Give me 2-3 recommendations for its maintenance")
