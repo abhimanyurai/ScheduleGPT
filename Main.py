@@ -248,15 +248,15 @@ if uploaded_file:
         ),
         QueryEngineTool(
             query_engine=caterpillar_maintenance_engine,
-            metadata=ToolMetadata(name='Cat 785 Cat 789 Cat 793 Maintenance Manual', description='Provides information about maintenance & service practices for Caterpillar - Cat  785 Cat 789 Cat 793 series trucks')
+            metadata=ToolMetadata(name='Caterpillar Maintenance Manual', description='Provides information about maintenance & service practices for Caterpillar - Cat  785 Cat 789 Cat 793 series trucks')
         ),
         QueryEngineTool(
          query_engine=pandas_query_engine,
-            metadata=ToolMetadata(name='Maintenance Log', description='Provides base data of equipment health and maintenance including breakdown for a given mine')
+            metadata=ToolMetadata(name='Maintenance Log', description='Provides base data of equipment health and maintenance including breakdown for a given mine and area')
         ),
         QueryEngineTool(
             query_engine=caterpillar_specs_engine,
-            metadata=ToolMetadata(name='Specs for Caterpilar', description='Provides infromation about caterpillar equipment specifications')
+            metadata=ToolMetadata(name='Specs for Caterpilar Equipment', description='Provides infromation about caterpillar equipment specifications')
         ),
     ]
 
@@ -286,7 +286,12 @@ if uploaded_file:
     
     if prompt is not None:
         with st.chat_message("Maintenance Bot"):
-                response = s_engine.query(prompt)
-                st.session_state.messages.append({"role": "Maintenance Bot", "content": response.response})
-                st.write(response.response)
+                try: 
+                    response = s_engine.query(prompt)
+                except KeyError as k:
+                    st.session_state.messages.append({"role": "Maintenance Bot", "content": "Can you please reframe the question"})
+                    st.write("Can you please reframe the question")
+                else:
+                    st.session_state.messages.append({"role": "Maintenance Bot", "content": response.response})
+                    st.write(response.response)
 
