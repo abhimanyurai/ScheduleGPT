@@ -244,7 +244,7 @@ if uploaded_file:
     query_engine_tools = [
         QueryEngineTool(
             query_engine=overall_maintenance_engine,
-            metadata=ToolMetadata(name='Plant Maintenance Manual', description='Provides summary information about Maintenance Manual practices for all equipment in a mine')
+            metadata=ToolMetadata(name='Plant Maintenance Manual', description='Provides summary information about Maintenance practices for all equipment in a mine')
         ),
         QueryEngineTool(
             query_engine=caterpillar_maintenance_engine,
