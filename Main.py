@@ -17,15 +17,8 @@ from llama_index.response.pprint_utils import pprint_response
 from llama_index.query_engine import CustomQueryEngine
 from llama_index.tools import QueryEngineTool, ToolMetadata, FunctionTool
 from llama_index.query_engine import SubQuestionQueryEngine
-from langchain.embeddings import GPT4AllEmbeddings
-from langchain.document_loaders import PyPDFLoader
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Chroma
-from langchain.embeddings import SentenceTransformerEmbeddings
-from langchain.embeddings import HuggingFaceHubEmbeddings
-from langchain.llms import OpenAI, HuggingFacePipeline
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings import OpenAIEmbeddings
+from llama_index.llms import OpenAI
+
 from llama_index.node_parser import SimpleNodeParser
 from llama_index.query_engine.pandas_query_engine import PandasQueryEngine
 from llama_index.response.pprint_utils import pprint_response
