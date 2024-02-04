@@ -246,7 +246,7 @@ if uploaded_file:
 
 
     query_engine_tools = [
-        llm_query_engine,
+        
        
         QueryEngineTool(
          query_engine=pandas_query_engine,
@@ -261,8 +261,8 @@ if uploaded_file:
     
     # Given a query, this query engine `SubQuestionQueryEngine ` will generate a “query plan”
     # containing sub-queries against sub-documents before synthesizing the final answer.
-    #s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
-    agent = OpenAIAgent.from_tools(query_engine_tools, verbose=True)
+    s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
+    #agent = OpenAIAgent.from_tools(query_engine_tools, verbose=True)
     
     
     # response = s_engine.query("Which machine shows the highest equipment breakdown? Give me 2-3 recommendations for its maintenance")
@@ -283,7 +283,7 @@ if uploaded_file:
     if prompt is not None:
         with st.chat_message("Schedule Bot"):
                 try: 
-                    response = agent.chat(prompt)
+                    response = s_engine.query(prompt)
                 except KeyError as k:
                     st.session_state.messages.append({"role": "Schedule Bot", "content": "Can you please reframe the question"})
                     st.write("Can you please reframe the question")
