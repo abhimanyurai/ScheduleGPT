@@ -14,6 +14,7 @@ from PIL import Image
 from llama_index import SimpleDirectoryReader, LLMPredictor, ServiceContext, VectorStoreIndex
 from llama_index.response.pprint_utils import pprint_response
 
+from llama_index import CustomQueryEngine
 from llama_index.tools import QueryEngineTool, ToolMetadata
 from llama_index.query_engine import SubQuestionQueryEngine
 from langchain.embeddings import GPT4AllEmbeddings
@@ -230,23 +231,23 @@ uploaded_file = st.file_uploader(
 
 
 st.markdown('---')
-
+llm = OpenAI(temperature=0,model="gpt-3.5-turbo")
+def my_custom_function(query):
+    return llm.query(query)
+    
 if uploaded_file:
     df = load_data(uploaded_file)
     
     pandas_query_engine = PandasQueryEngine(df=df,verbose=True)
-
+    llm_query_engine = CustomQueryEngine(retriever = None, custom_query=my_custom_function)
 
 
     query_engine_tools = [
         QueryEngineTool(
-            query_engine=overall_maintenance_engine,
-            metadata=ToolMetadata(name='Plant Maintenance Manual', description='Provides summary information about Maintenance practices for all equipment in a mine')
+            query_engine=llm_query_engine,
+            metadata=ToolMetadata(name='LLM Query Engine', description='Use LLM queries for general purpose and logic')
         ),
-        QueryEngineTool(
-            query_engine=caterpillar_maintenance_engine,
-            metadata=ToolMetadata(name='Caterpillar Maintenance Manual', description='Provides information about maintenance & service practices for Caterpillar - Cat  785 Cat 789 Cat 793 series trucks')
-        ),
+       
         QueryEngineTool(
          query_engine=pandas_query_engine,
             metadata=ToolMetadata(name='Project Schedule', description='Provides plan vs actual for various activities in a given schedule. Also provides information regarding whether the activity is delayed or not as well as whether the activity is a critical path activity or not')
@@ -256,7 +257,7 @@ if uploaded_file:
 
 #panda_index = GPTPandasIndex (df=df)
 #pandas_query_engine = panda_index.as_query_engine()
-    llm = OpenAI(temperature=0,model="gpt-3.5-turbo")
+    
     
     # Given a query, this query engine `SubQuestionQueryEngine ` will generate a “query plan”
     # containing sub-queries against sub-documents before synthesizing the final answer.
