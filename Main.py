@@ -18,6 +18,7 @@ from llama_index.query_engine import CustomQueryEngine
 from llama_index.tools import QueryEngineTool, ToolMetadata, FunctionTool
 from llama_index.query_engine import SubQuestionQueryEngine
 from llama_index.llms import OpenAI
+from llama_index.prompts import PromptTemplate
 
 from llama_index.node_parser import SimpleNodeParser
 from llama_index.query_engine.pandas_query_engine import PandasQueryEngine
