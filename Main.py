@@ -31,6 +31,7 @@ from llama_index.query_engine.pandas_query_engine import PandasQueryEngine
 from llama_index.response.pprint_utils import pprint_response
 from llama_index.query_engine import SubQuestionQueryEngine
 from llama_index import StorageContext, load_index_from_storage
+from llama_index.agent import OpenAIAgent
 import os
 import openai
 from llama_index.vector_stores import ChromaVectorStore
@@ -244,10 +245,7 @@ if uploaded_file:
 
 
     query_engine_tools = [
-        QueryEngineTool(
-            query_engine=llm_query_engine,
-            metadata=ToolMetadata(name='LLM Query Engine', description='Use LLM queries for general purpose and logic')
-        ),
+        llm_query_engine,
        
         QueryEngineTool(
          query_engine=pandas_query_engine,
