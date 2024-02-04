@@ -15,7 +15,7 @@ from llama_index import SimpleDirectoryReader, LLMPredictor, ServiceContext, Vec
 from llama_index.response.pprint_utils import pprint_response
 
 from llama_index.query_engine import CustomQueryEngine
-from llama_index.tools import QueryEngineTool, ToolMetadata
+from llama_index.tools import QueryEngineTool, ToolMetadata, FunctionTool
 from llama_index.query_engine import SubQuestionQueryEngine
 from langchain.embeddings import GPT4AllEmbeddings
 from langchain.document_loaders import PyPDFLoader
@@ -234,12 +234,13 @@ st.markdown('---')
 llm = OpenAI(temperature=0,model="gpt-3.5-turbo")
 def my_custom_function(query):
     return llm.query(query)
-    
+
+llm_query_engine = FunctionTool.from_defaults(fn=my_custom_function)
 if uploaded_file:
     df = load_data(uploaded_file)
     
     pandas_query_engine = PandasQueryEngine(df=df,verbose=True)
-    llm_query_engine = CustomQueryEngine(retriever = None, custom_query=my_custom_function)
+    
 
 
     query_engine_tools = [
