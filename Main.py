@@ -250,7 +250,7 @@ if uploaded_file:
        
         QueryEngineTool(
          query_engine=pandas_query_engine,
-            metadata=ToolMetadata(name='Project Schedule', description='Provides plan vs actual for various activities in a given schedule. Also provides information regarding whether the activity is delayed or not as well as whether the activity is a critical path activity or not')
+            metadata=ToolMetadata(name='Project Schedule', description='Provides activity status for various activities in a given schedule')
         ),
        
     ]
