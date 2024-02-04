@@ -238,24 +238,7 @@ if uploaded_file:
     
     pandas_query_engine = PandasQueryEngine(df=df,verbose=True)
 
-    new_prompt = PromptTemplate(
-    """\
-You are working with a pandas dataframe in Python.
-The name of the dataframe is `df`.
-This is the result of `print(df.head())`:
-{df_str}
-
-Follow these instructions:
-{instruction_str}
-Give a detailed answer in plain english with explanation.
-Query: {query_str}
-
-Expression: """
-)
-
-    pandas_query_engine.update_prompts({"pandas_prompt": new_prompt})
-
-
+    
     query_engine_tools = [
         
         llm_query_engine,
