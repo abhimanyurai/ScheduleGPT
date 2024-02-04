@@ -14,7 +14,7 @@ from PIL import Image
 from llama_index import SimpleDirectoryReader, LLMPredictor, ServiceContext, VectorStoreIndex
 from llama_index.response.pprint_utils import pprint_response
 
-from llama_index import CustomQueryEngine
+from llama_index.query_engine import CustomQueryEngine
 from llama_index.tools import QueryEngineTool, ToolMetadata
 from llama_index.query_engine import SubQuestionQueryEngine
 from langchain.embeddings import GPT4AllEmbeddings
