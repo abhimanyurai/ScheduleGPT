@@ -285,7 +285,7 @@ if uploaded_file:
     if prompt is not None:
         with st.chat_message("Schedule Bot"):
                 try: 
-                    response = s_engine.query(prompt)
+                    response = llm.query("Format the below response in simple text : "+str(s_engine.query(prompt))
                 except KeyError as k:
                     st.session_state.messages.append({"role": "Schedule Bot", "content": "Can you please reframe the question"})
                     st.write("Can you please reframe the question")
