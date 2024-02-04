@@ -261,7 +261,8 @@ if uploaded_file:
     
     # Given a query, this query engine `SubQuestionQueryEngine ` will generate a “query plan”
     # containing sub-queries against sub-documents before synthesizing the final answer.
-    s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
+    #s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
+    s_engine = pandas_query_engine
     #agent = OpenAIAgent.from_tools(query_engine_tools, verbose=True)
     
     
