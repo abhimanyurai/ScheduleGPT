@@ -47,8 +47,8 @@ os.environ["OPENAI_API_KEY"] = st.secrets["open_ai"]
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
-st.set_page_config(page_title="Maintenance Bot", page_icon=logo_path)
-st.title("Welcome to the Maintenance Bot for Mining")
+st.set_page_config(page_title="Capital Projects Schedule Bot", page_icon=logo_path)
+st.title("Welcome to the Capital Project (Schedule) Bot for Mining & Metals")
 st.markdown('---')
 
 
