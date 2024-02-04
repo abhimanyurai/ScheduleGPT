@@ -232,7 +232,7 @@ uploaded_file = st.file_uploader(
 
 
 st.markdown('---')
-llm = OpenAI(temperature=0,model="gpt-3.5-turbo")
+llm = OpenAI(model="gpt-3.5-turbo-0613")
 def my_custom_function(query):
     return llm.query(query)
 
