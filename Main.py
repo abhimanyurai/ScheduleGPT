@@ -126,10 +126,7 @@ def create_chroma_store_pdf(path):
 
 
 # data_vector_index = update_data_vector(path = app_path+"/Maintenance_Records")
-caterpillar_maintenance_engine = create_chroma_store_pdf(path = app_path+"/SAP_Manuals_Caterpillar")
-caterpillar_specs_engine = create_chroma_store_pdf(path = app_path+"/Specs")
 
-overall_maintenance_engine = create_chroma_store_pdf(path = app_path+"/SOP_Manuals")
 
 
 # overall_maintenance_index.storage_context.persist(persist_dir=app_path+"/Index")
@@ -210,9 +207,9 @@ with st.sidebar:
         st.sidebar.image(img, width=100)  
     
 
-    st.title('Maintenance Bot for Mining')
+    st.title('Schedule GPT for Capital Projects')
     st.subheader('Powered by Accenture')
-    st.write("Provides all information regarding a given maintenance record, equipment details and provides recommendations on maintenance best practices")
+    st.write("Provides all information regarding a given project schedule, analyses delays and provides recommendations on remedial measures")
 
     hf_pass = st.text_input('Enter password:', type='password')
     if not (hf_pass == st.secrets['password']):
@@ -252,12 +249,9 @@ if uploaded_file:
         ),
         QueryEngineTool(
          query_engine=pandas_query_engine,
-            metadata=ToolMetadata(name='Maintenance Log', description='Provides base data of equipment health and maintenance including breakdown for a given mine and area')
+            metadata=ToolMetadata(name='Project Schedule', description='Provides plan vs actual for various activities in a given schedule. Also provides information regarding whether the activity is delayed or not as well as whether the activity is a critical path activity or not')
         ),
-        QueryEngineTool(
-            query_engine=caterpillar_specs_engine,
-            metadata=ToolMetadata(name='Specs for Caterpilar Equipment', description='Provides infromation about caterpillar equipment specifications')
-        ),
+       
     ]
 
 #panda_index = GPTPandasIndex (df=df)
@@ -275,7 +269,7 @@ if uploaded_file:
     
     
     if "messages" not in st.session_state:
-        st.session_state["messages"] = [{"role": "Maintenance Bot", "content": "How can I help you?"}]
+        st.session_state["messages"] = [{"role": "Schedule Bot", "content": "How can I help you?"}]
     
     for msg in st.session_state.messages:
         st.chat_message(msg["role"]).write(msg["content"])
@@ -285,13 +279,13 @@ if uploaded_file:
         st.chat_message("user").write(prompt)
     
     if prompt is not None:
-        with st.chat_message("Maintenance Bot"):
+        with st.chat_message("Schedule Bot"):
                 try: 
                     response = s_engine.query(prompt)
                 except KeyError as k:
-                    st.session_state.messages.append({"role": "Maintenance Bot", "content": "Can you please reframe the question"})
+                    st.session_state.messages.append({"role": "Schedule Bot", "content": "Can you please reframe the question"})
                     st.write("Can you please reframe the question")
                 else:
-                    st.session_state.messages.append({"role": "Maintenance Bot", "content": response.response})
+                    st.session_state.messages.append({"role": "Schedule Bot", "content": response.response})
                     st.write(response.response)
 
