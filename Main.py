@@ -252,7 +252,7 @@ Query: {query_str}
 Expression: """
 )
 
-pandas_query_engine.update_prompts({"pandas_prompt": new_prompt})
+    pandas_query_engine.update_prompts({"pandas_prompt": new_prompt})
 
 
     query_engine_tools = [
