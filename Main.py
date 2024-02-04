@@ -246,7 +246,7 @@ if uploaded_file:
     
 
 
-   query_engine_tools = [
+    query_engine_tools = [
         
         llm_query_engine,
         QueryEngineTool(
