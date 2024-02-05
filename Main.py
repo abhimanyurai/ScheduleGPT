@@ -257,8 +257,8 @@ if uploaded_file:
     # containing sub-queries against sub-documents before synthesizing the final answer.
     #s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
     #s_engine = pandas_query_engine
-    context = "You are a bot which will be given a simple dataframe containing project schedule activities and their status. You should use Activity Name column for providing activity names. You should use Activity Status column for delay status of activities. You should use Critical Path Activity column for identifying whether the activity is a critical path activity or not. You will respond to user queries regarding the project schedule, whether the activities are delayed or not etc."
-    agent = ReActAgent.from_tools(query_engine_tools,llm=llm, context=context, verbose=True)
+    #context = "You are a bot which will be given a simple dataframe containing project schedule activities and their status. You should use Activity Name column for providing activity names. You should use Activity Status column for delay status of activities. You should use Critical Path Activity column for identifying whether the activity is a critical path activity or not. You will respond to user queries regarding the project schedule, whether the activities are delayed or not etc."
+    agent = ReActAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
     #agent = OpenAIAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
     
     #response = s_engine.query("Which machine shows the highest equipment breakdown? Give me 2-3 recommendations for its maintenance")
