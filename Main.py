@@ -241,7 +241,7 @@ if uploaded_file:
     
     query_engine_tools = [
         
-        llm_query_engine,
+        
         QueryEngineTool(
          query_engine=pandas_query_engine,
             metadata=ToolMetadata(name='Project Schedule', description='Provides activity status for various activities in a given schedule')
