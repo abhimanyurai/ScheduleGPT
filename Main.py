@@ -256,9 +256,9 @@ if uploaded_file:
     # Given a query, this query engine `SubQuestionQueryEngine ` will generate a “query plan”
     # containing sub-queries against sub-documents before synthesizing the final answer.
     #s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
-    s_engine = pandas_query_engine
+    #s_engine = pandas_query_engine
     #agent = ReActAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
-    
+    agent = OpenAIAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
     
     # response = s_engine.query("Which machine shows the highest equipment breakdown? Give me 2-3 recommendations for its maintenance")
     
@@ -278,14 +278,14 @@ if uploaded_file:
     if prompt is not None:
         with st.chat_message("Schedule Bot"):
                 try: 
-                    response = s_engine.query(prompt)
-                    #response = str(agent.chat(prompt))
+                    #response = s_engine.query(prompt)
+                    response = str(agent.chat(prompt))
                 except KeyError as k:
                     st.session_state.messages.append({"role": "Schedule Bot", "content": "Can you please reframe the question"})
                     st.write("Can you please reframe the question")
                 else:
-                    st.session_state.messages.append({"role": "Schedule Bot", "content": response.response})
-                    st.write(response.response)
-                    #st.session_state.messages.append({"role": "Schedule Bot", "content": response})
-                    #st.write(response)
+                    #st.session_state.messages.append({"role": "Schedule Bot", "content": response.response})
+                    #st.write(response.response)
+                    st.session_state.messages.append({"role": "Schedule Bot", "content": response})
+                    st.write(response)
 
