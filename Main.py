@@ -257,8 +257,8 @@ if uploaded_file:
     # containing sub-queries against sub-documents before synthesizing the final answer.
     #s_engine = SubQuestionQueryEngine.from_defaults(query_engine_tools=query_engine_tools, verbose=True)
     #s_engine = pandas_query_engine
-    #agent = ReActAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
-    agent = OpenAIAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
+    agent = ReActAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
+    #agent = OpenAIAgent.from_tools(query_engine_tools,llm=llm, verbose=True)
     
     # response = s_engine.query("Which machine shows the highest equipment breakdown? Give me 2-3 recommendations for its maintenance")
     
