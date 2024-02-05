@@ -284,6 +284,8 @@ if uploaded_file:
                     st.session_state.messages.append({"role": "Schedule Bot", "content": "Can you please reframe the question"})
                     st.write("Can you please reframe the question")
                 else:
-                    st.session_state.messages.append({"role": "Schedule Bot", "content": response.response})
-                    st.write(response.response)
+                    #st.session_state.messages.append({"role": "Schedule Bot", "content": response.response})
+                    #st.write(response.response)
+                    st.session_state.messages.append({"role": "Schedule Bot", "content": response})
+                    st.write(response)
 
